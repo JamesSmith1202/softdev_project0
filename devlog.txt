@@ -1,0 +1,3 @@
+smithJ -- 2017-10-20 20:05:57
+Worked on PDF and wrote the bash script for easy logging
+
