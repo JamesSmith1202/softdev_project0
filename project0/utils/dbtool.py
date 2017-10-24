@@ -1,5 +1,5 @@
 #backend python propro
-import sqlite3#, authtool
+import sqlite3, authtool
 
 db = sqlite3.connect("database.db")
 c = db.cursor()
@@ -33,7 +33,8 @@ def update_story(storyid,addition,username):
     body = story_body(storyid)
     c.execute('UPDATE stories SET recent = "%s", body = "%s" WHERE id = %d' %(addition,body + addition,storyid))
     db.commit()
-    #add_contribution(username,storyid)
+    authtool.add_contribution(username,storyid)
+    db.commit()
     
 
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
     print story_title(1)
     print story_body(1)
     print story_recent(1)
-    update_story(1,' there were 3 salads.', 'MrSalad')
+    update_story(1,' They smelled delicious', 'Mr. Salad')
     print story_title(1)
     print story_body(1)
     print story_recent(1)
