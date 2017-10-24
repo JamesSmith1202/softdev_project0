@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-            {% block title %}{% endblock %}
-        </title>
+      <title>
+        {% block title %}{% endblock %}
+      </title>
     </head>
 
     <body>
-        {% block content %}{% endblock %}
+      <form action="127.0.0.1:5000/home">
+	<input type="submit" value="Home" />
+      </form>
+      <form action="POST">
+	<input type="submit" value="Log out" />
+      </form>
+      {% block content %}{% endblock %}
     </body>
 </html>

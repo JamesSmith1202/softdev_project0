@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>
+        Home
+      </title>
+    </head>
+
+    <body>
+      {% if {{logged_in}} %}
+      <form action="127.0.0.1:5000/login">
+	<input type="submit" value="Log In!" />
+      </form>
+      {% else %}
+      <form action="POST">
+	<input type="submit" value="Log out" />
+      </form>
+      {% endif %}
+    </body>
+</html>
