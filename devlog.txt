@@ -7,3 +7,6 @@ Finished our project plan
 elsharawyM -- 2017-10-23 19:14:36
 Started .db file, no tables yet
 
+elsharawyM -- 2017-10-24 14:21:08
+Created tables and sample data
+
