@@ -10,3 +10,6 @@ Started .db file, no tables yet
 elsharawyM -- 2017-10-24 14:21:08
 Created tables and sample data
 
+elsharawyM -- 2017-10-24 14:40:02
+Created basic fetching functions and create_story()
+
