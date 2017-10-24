@@ -5,29 +5,34 @@ c = db.cursor()
 
 # Login - Returns true if successful, false otherwise
 def login(username, password):
-    c.execute("SELECT username, password FROM accounts");
+    c.execute("SELECT username, password FROM accounts WHERE username = '%s'" % (username));
     for account in c:
         user = account[0]
         passw = account[1]
-        #print "%s : %s" % (user, hashedPass)
         # Check if user and encrypted password match
         if username == user and encrypt_password(password) == passw:
             print "Successful Login"
             return True
-        else:
-            print "Login Failed"
-            return False
+    print "Login Failed"
+    return False
 
-# Encrypt password
+# Encrypt password - SHA256
 def encrypt_password(password):
     encrypted = hashlib.sha256(password).hexdigest()
     return encrypted
 
-# Create account
+# Create account - Returns true if successful, false otherwise
 def create_account(username, password):
-    print does_username_exist(username)
+    if not does_username_exist(username):
+        # Add user to accounts table
+        c.execute("INSERT INTO accounts VALUES('%s', '%s', '[]')" % (username, encrypt_password(password)))
+        db.commit()
+        print "Create Account Successful"
+        return True
+    print "Create Account Failed"
+    return False
 
-# Checks if username exists
+# Checks if username exists - Returns true if username exists, false otherwise
 def does_username_exist(username):
     c.execute("SELECT username FROM accounts WHERE username = '%s'" % (username))
     for account in c:
@@ -36,12 +41,57 @@ def does_username_exist(username):
         return True
     print "Username does not exist"
     return False
-#create_account(username, password) #- Creates a new entry in .accounts
-#does_username_exist(username) #- Returns true if username exists, false otherwise
-#encrypt_password(password) #- Returns SHA-256 version of password
-#add_contribution(username, storyid) #- Appends storyid to current list of story IDs using eval(idList) and repr(idList)
 
-login("bob", "AS123#sjakld")
-print encrypt_password("jasl")
+# Add contribution
+def add_contribution(username, storyid):
+    # Turn string into list
+    storyids = contributed_list(username)
+    # Append new story id
+    storyids.append(storyid)
+    # Turn list back into a string
+    id_list = repr(storyids)
+    c.execute("UPDATE accounts SET stories = '%s' WHERE username = '%s'" % (id_list, username))
+    db.commit()
+    print "Contribution added succesfully"
 
-create_account("Mr. Salad", "asldasd")
+# Did contribute to story - Returns true if contributed, otherwise false
+def did_contribute(username, storyid):
+    storyids = contributed_list(username)
+    for s_id in storyids:
+        if s_id == storyid:
+            print "User has contributed to story"
+            return True
+    print "User has not contributed to story"
+    return False
+
+# Return list of available story ids
+def available_list(username):
+    # Get story id list
+    available_stories = []
+    all_stories = []
+    user_stories = contributed_list(username)
+    # All stories
+    c.execute("SELECT id FROM stories")
+    for s_id in c:
+        all_stories.append(s_id[0])
+
+    # Populate available_stories
+    for s_id in all_stories:
+        if not s_id in user_stories:
+            available_stories.append(s_id)
+    return available_stories
+
+# Returns user's contributed list
+def contributed_list(username):
+    c.execute("SELECT stories FROM accounts WHERE username = '%s'" % (username))
+    for stories in c:
+        storyids = eval(stories[0])
+        return storyids
+    
+#login("Salado", "123456")
+#print encrypt_password("jasl")
+
+#create_account("Salado", "123456")
+#add_contribution("Mr. Salad", 6)
+#did_contribute("Mr. Salad", 5)
+#print available_list("Salado")
