@@ -16,3 +16,6 @@ Created basic fetching functions and create_story()
 elsharawyM -- 2017-10-24 14:48:45
 Created update_story(), commented out authtool implementations
 
+smithJ -- 2017-10-24 14:47:07
+Started working on html pages. finished template.html
+
