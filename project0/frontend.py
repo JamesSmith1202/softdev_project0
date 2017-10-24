@@ -15,15 +15,22 @@ USER_SESSION = "logged_in"
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
-def add_session(user):
-	if login()
-	session[USER_SESSION] = user
-	pass
+def add_session(username, password):
+	'''
+	Checks user's credentials and will add the login session if they match
+	Returns True if successful, False otherwise
+	'''
+	
+	if login(username, password):
+		session[USER_SESSION] = user
+		return True
+	return False
 
 def logout():
 	'''
 	Just logs the user out
 	'''
+	
 	if USER_SESSION in session:
 		session.pop(USER_SESSION)
 
@@ -38,9 +45,23 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-	if 
-	#return render_template("login.html")
-	return "It works"
+	#is user trying to log in or register
+	if request.method == "POST":
+		if request.args["LOGGING IN"]:
+			if add_session(
+				request.form["username"],
+				request.form["password"]
+			):
+				return redirect(url_for("home"))
+			else:
+				flash("Incorrect login")
+				#return render_template("login.html")
+				return 
+		elif request.args["REGISTERING"]:
+			pass
+	else:
+		#return render_template("login.html")
+		return "It works"
 
 @app.route("/create")
 def create():
