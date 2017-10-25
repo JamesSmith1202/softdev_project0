@@ -1,6 +1,8 @@
 #frontend flaskapp
 import os
 
+#from utils.dbtool import *
+
 from flask import Flask, redirect, url_for, render_template, session, \
 	request
 
@@ -34,20 +36,45 @@ def logout():
 	if USER_SESSION in session:
 		session.pop(USER_SESSION)
 
+
+#~~~~~~~~~~~~~ROUTE CODE GOES BELOW~~~~~~~~~~~~~~~~
+
 @app.route("/")
 def root():
 	return redirect(url_for("home"))
 
-@app.route("/home")
+#for now, logout requests are handled here
+@app.route("/home", methods=["GET", "POST"])
 def home():
+	'''
+	Main website page
+	
+	If user not logged in, shows instructions
+	otherwise, shows stories the user contributed to
+	
+	Will also handle logout requests
+	'''
+	
+	if request.method == "POST":
+		if request.form["Log out"]:
+			logout()
+			return redirect(url_for("home"))
+	
+	if USER_SESSION in session:
+		#do some fancy template stuff
+		pass
+	
 	#return render_template("home.html")
 	return "It works"
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+	if USER_SESSION in session:
+		return redirect(url_for("home"))
+	
 	#is user trying to log in or register
 	if request.method == "POST":
-		if request.args["LOGGING IN"]:
+		if request.form["LOGGING IN"]:
 			if add_session(
 				request.form["username"],
 				request.form["password"]
@@ -57,7 +84,7 @@ def login():
 				flash("Incorrect login")
 				#return render_template("login.html")
 				return 
-		elif request.args["REGISTERING"]:
+		elif request.form["REGISTERING"]:
 			pass
 	else:
 		#return render_template("login.html")
@@ -65,19 +92,45 @@ def login():
 
 @app.route("/create")
 def create():
+	'''
+	Route for creating a new story
+	'''
+	
+	if not(USER_SESSION in session):
+		return redirect(url_for("home"))
+	
 	#return render_template("create.html")
 	return "It works"
 
 @app.route("/available")
 def available():
+	'''
+	Displays a list of stories the user hasn't contributed to yet
+	'''
+	
+	if not(USER_SESSION in session):
+		return redirect(url_for("home"))
+
 	#return render_template("available.html")
 	return "It works"
 
 @app.route("/page")
 def page():
+	'''
+	Displays a single story
+	if user has contributed, just view story
+	otherwise, display the most recent section of the story
+	and a form to add another section
+	'''	
+	
+	if not(USER_SESSION in session):
+		return redirect(url_for("home"))
+
 	#return render_template("page.html")
 	return "It works"
 
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
+
+
