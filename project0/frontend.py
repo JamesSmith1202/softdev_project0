@@ -1,7 +1,7 @@
 #frontend flaskapp
 import os
 
-#from utils.dbtool import *
+from utils.dbtool import *
 
 from flask import Flask, redirect, url_for, render_template, session, \
 	request
@@ -62,6 +62,11 @@ def home():
 	
 	if USER_SESSION in session:
 		#do some fancy template stuff
+		
+		'''
+		return render_template("home.html",
+			stories_contributed=contributed_list(session[USER_SESSION))
+		'''
 		pass
 	
 	#return render_template("home.html")
@@ -74,7 +79,7 @@ def login():
 	
 	#is user trying to log in or register
 	if request.method == "POST":
-		if request.form["LOGGING IN"]:
+		if request.form["Login"]:
 			if add_session(
 				request.form["username"],
 				request.form["password"]
@@ -84,13 +89,13 @@ def login():
 				flash("Incorrect login")
 				#return render_template("login.html")
 				return 
-		elif request.form["REGISTERING"]:
+		elif request.form["Register"]:
 			pass
 	else:
 		#return render_template("login.html")
 		return "It works"
 
-@app.route("/create")
+@app.route("/create", methods=["GET", "POST"])
 def create():
 	'''
 	Route for creating a new story
@@ -98,6 +103,16 @@ def create():
 	
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
+	
+	if request.method == "POST":
+		title = request.form["title"]
+		entry = request.form["entry"]
+		
+		if create_story(title, entry):
+			return redirect(url_for("home"))
+		else:
+			flash("story creation failed, try a different title")
+			
 	
 	#return render_template("create.html")
 	return "It works"
@@ -110,7 +125,8 @@ def available():
 	
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
-
+	
+	stories = available_list(session[USER_SESSION])
 	#return render_template("available.html")
 	return "It works"
 
@@ -125,7 +141,15 @@ def page():
 	
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
-
+	
+	if request.args["id"]:
+		story_id = request.args["id"]
+		if did_contribute(session[USER_SESSION], story_id):
+			title = story_title(story_id)
+			
+		else:
+			pass
+		
 	#return render_template("page.html")
 	return "It works"
 

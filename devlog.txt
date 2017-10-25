@@ -40,3 +40,6 @@ Modified create_story to return True if creation worked, false otherwise
 ngM -- 2017-10-25 14:37:24
 Created login form
 
+linS -- 2017-10-25 14:39:32
+More work on frontend, will begin testing soon
+
