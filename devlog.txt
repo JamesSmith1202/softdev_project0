@@ -37,3 +37,6 @@ Fixed minor typos in template.html and added some logic to frontend
 elsharawyM -- 2017-10-25 14:33:40
 Modified create_story to return True if creation worked, false otherwise
 
+ngM -- 2017-10-25 14:37:24
+Created login form
+
