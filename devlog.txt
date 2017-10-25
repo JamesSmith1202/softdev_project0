@@ -28,3 +28,6 @@ Finished all functions in authtool.py
 elsharawyM -- 2017-10-24 19:33:42
 Implemented authtools in dbtool.py
 
+linS -- 2017-10-24 21:21:46
+Fixed minor typos in template.html and added some logic to frontend
+
