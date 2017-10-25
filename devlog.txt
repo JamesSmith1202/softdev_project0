@@ -22,6 +22,9 @@ Started working on html pages. finished template.html
 ngM -- 2017-10-24 14:54:26
 Created login(), encrypt_password(), and does_username_exist() in authtool.py
 
+linS -- 2017-10-24 14:45:06
+Wrote some boilerplate code for the frontend
+
 ngM -- 2017-10-24 17:57:32
 Finished all functions in authtool.py
 
