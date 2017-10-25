@@ -34,3 +34,6 @@ Implemented authtools in dbtool.py
 linS -- 2017-10-24 21:21:46
 Fixed minor typos in template.html and added some logic to frontend
 
+elsharawyM -- 2017-10-25 14:33:40
+Modified create_story to return True if creation worked, false otherwise
+

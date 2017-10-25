@@ -26,8 +26,13 @@ def create_story(title,body):
     for row in c:
         last = row
     newid = last[0] + 1
-    c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s")' %(newid,title,body,body))
+    try:
+        c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s")' %(newid,title,body,body))
+    except:
+        return False
+    
     db.commit()
+    return True
 
 def update_story(storyid,addition,username):
     body = story_body(storyid)
@@ -42,7 +47,10 @@ if __name__ == '__main__':
     print story_title(0)
     print story_body(0)
     print story_recent(0)
-    #create_story("Goldilocks and the Three Salads","Once upon a time,")
+    create_story("Goldilocks and the Three Salads","Once upon a time,")
+
+
+    ''' 
     print story_title(1)
     print story_body(1)
     print story_recent(1)
@@ -50,7 +58,7 @@ if __name__ == '__main__':
     print story_title(1)
     print story_body(1)
     print story_recent(1)
-
+    '''
 
 
     db.close()
