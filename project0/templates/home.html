@@ -7,14 +7,27 @@
     </head>
 
     <body>
-      {% if {{logged_in}} %}
+      {% if {{!logged_in}} %}
       <form action="127.0.0.1:5000/login">
 	<input type="submit" value="Log In!" />
       </form>
+      <h1>Welcome to Salading in Yo DMs Story Page!</h1>
+      This is a a collaborative storytelling website. First you must log in or create an account. Afterwards you will be presented with a list of the stories you have contributed to. Given that you are reading this, it will be initially blank, but don't worry! You will have many stories to read very soon! Start out by creating your own story or going to the 'available' page to look at the stories other users have created. You are only able to see the last piece added, so you never know the entire story. Once you contribute to a story or create one, it will appear on your homepage, where you can click on it to read the current story. Have fun!
       {% else %}
-      <form action="POST">
+      <form method="POST">
 	<input type="submit" value="Log out" />
       </form>
+      <h1> Your Stories </h1>
+      <table>
+	<tr>
+	  <th>Title</th>
+	</tr>
+      {% for story in stories_contributed %}
+      <tr>
+	<td><a href="127.0.0.1:5000/page?id=" + {{story[0]}}>{{story[1]}}</a></td>
+      </tr>
+      {% endfor %}
+      </table>
       {% endif %}
     </body>
 </html>
