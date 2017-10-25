@@ -13,17 +13,17 @@ Created tables and sample data
 elsharawyM -- 2017-10-24 14:40:02
 Created basic fetching functions and create_story()
 
-elsharawyM -- 2017-10-24 14:48:45
-Created update_story(), commented out authtool implementations
+linS -- 2017-10-24 14:45:06
+Wrote some boilerplate code for the frontend
 
 smithJ -- 2017-10-24 14:47:07
 Started working on html pages. finished template.html
 
+elsharawyM -- 2017-10-24 14:48:45
+Created update_story(), commented out authtool implementations
+
 ngM -- 2017-10-24 14:54:26
 Created login(), encrypt_password(), and does_username_exist() in authtool.py
-
-linS -- 2017-10-24 14:45:06
-Wrote some boilerplate code for the frontend
 
 ngM -- 2017-10-24 17:57:32
 Finished all functions in authtool.py
