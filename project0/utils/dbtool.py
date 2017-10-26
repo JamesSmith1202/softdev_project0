@@ -1,22 +1,25 @@
 #backend python propro
 import sqlite3, authtool
 
-db = sqlite3.connect("database.db")
-c = db.cursor()
-
 
 def story_title(storyid):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT * FROM stories WHERE id = %d" %(storyid))
     for row in c: 
         return row[1]
 
 def story_body(storyid):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT * FROM stories WHERE id = %d" %(storyid))
     for row in c: 
         return row[3]
 
 
 def story_recent(storyid):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT * FROM stories WHERE id = %d" %(storyid))
     for row in c: 
         return row[2]
@@ -35,6 +38,8 @@ def create_story(title,body):
     return True
 
 def update_story(storyid,addition,username):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     body = story_body(storyid)
     c.execute('UPDATE stories SET recent = "%s", body = "%s" WHERE id = %d' %(addition,body + addition,storyid))
     db.commit()
