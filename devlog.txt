@@ -46,3 +46,6 @@ More work on frontend, will begin testing soon
 smithJ -- 2017-10-25 14:44:28
 Finished version1 of the home page. need to revise it and break it into two separate pages. one for if you are logged in, and one if you are not
 
+linS -- 2017-10-25 20:57:10
+testing login
+
