@@ -25,7 +25,7 @@ def add_session(username, password):
 	'''
 	
 	if authtool.login(username, password):
-		session[USER_SESSION] = user
+		session[USER_SESSION] = username
 		return True
 	return False
 
@@ -58,17 +58,18 @@ def home():
 	
 	if request.method == "POST":
 		print request.form
-		if request.form["log_out"]:
+		if "log_out" in request.form:
 			logout()
 			return redirect(url_for("home"))
 	
 	if USER_SESSION in session:
 		#do some fancy template stuff
 		
-		'''
+		
 		return render_template("home.html",
-			stories_contributed=contributed_list(session[USER_SESSION))
-		'''
+			stories_contributed=contributed_list(session[USER_SESSION]),
+			logged_in=True)
+		
 		pass
 	
 	return render_template("home.html", logged_in=False)
@@ -116,16 +117,17 @@ def create():
 	
 	if request.method == "POST":
 		title = request.form["title"]
-		entry = request.form["entry"]
+		body = request.form["body"]
 		
-		if create_story(title, entry):
+		if create_story(title, body):
 			return redirect(url_for("home"))
 		else:
 			flash("story creation failed, try a different title")
+			return render_template("create.html")
 			
 	
-	#return render_template("create.html")
-	return "It works"
+	return render_template("create.html")
+	#return "It works"
 
 @app.route("/available")
 def available():
@@ -152,14 +154,16 @@ def page():
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
 	
-	if request.args["id"]:
+	if "id" in request.args:
 		story_id = request.args["id"]
-		if did_contribute(session[USER_SESSION], story_id):
-			title = story_title(story_id)
-			
-		else:
-			pass
+		title = story_title(story_id)
 		
+		if did_contribute(session[USER_SESSION], story_id):
+			body = story_body(story_id)
+		else:
+			recent = story_recent(story_id)
+		
+	
 	#return render_template("page.html")
 	return "It works"
 
