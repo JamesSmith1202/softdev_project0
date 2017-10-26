@@ -118,8 +118,9 @@ def create():
 	if request.method == "POST":
 		title = request.form["title"]
 		body = request.form["body"]
+		print "title: %s, body: %s, user: %s"%(title, body,session[USER_SESSION])
 		
-		if create_story(title, body):
+		if create_story(title, body, session[USER_SESSION]):
 			return redirect(url_for("home"))
 		else:
 			flash("story creation failed, try a different title")

@@ -24,13 +24,18 @@ def story_recent(storyid):
     for row in c: 
         return row[2]
 
-def create_story(title,body):
+def create_story(title,body,username):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT * FROM stories")
     for row in c:
         last = row
     newid = last[0] + 1
     try:
         c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s")' %(newid,title,body,body))
+    	authtool.add_contribution(username,newid)
+	db.commit()
+    	return True
     except:
         return False
     
