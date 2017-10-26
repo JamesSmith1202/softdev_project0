@@ -1,10 +1,10 @@
+#authtool
 import sqlite3, hashlib
-
-db = sqlite3.connect("database.db")
-c = db.cursor()
 
 # Login - Returns true if successful, false otherwise
 def login(username, password):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT username, password FROM accounts WHERE username = '%s'" % (username));
     for account in c:
         user = account[0]
@@ -23,10 +23,13 @@ def encrypt_password(password):
 
 # Create account - Returns true if successful, false otherwise
 def create_account(username, password):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     if not does_username_exist(username):
         # Add user to accounts table
         c.execute("INSERT INTO accounts VALUES('%s', '%s', '[]')" % (username, encrypt_password(password)))
         db.commit()
+        db.close()
         print "Create Account Successful"
         return True
     print "Create Account Failed"
@@ -34,6 +37,8 @@ def create_account(username, password):
 
 # Checks if username exists - Returns true if username exists, false otherwise
 def does_username_exist(username):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT username FROM accounts WHERE username = '%s'" % (username))
     for account in c:
         # Username exists
@@ -44,6 +49,8 @@ def does_username_exist(username):
 
 # Add contribution
 def add_contribution(username, storyid):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     # Turn string into list
     storyids = contributed_list(username)
     # Append new story id
@@ -52,6 +59,7 @@ def add_contribution(username, storyid):
     id_list = repr(storyids)
     c.execute("UPDATE accounts SET stories = '%s' WHERE username = '%s'" % (id_list, username))
     db.commit()
+    db.close()
     print "Contribution added succesfully"
 
 # Did contribute to story - Returns true if contributed, otherwise false
@@ -66,6 +74,8 @@ def did_contribute(username, storyid):
 
 # Return list of available story ids
 def available_list(username):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     # Get story id list
     available_stories = []
     all_stories = []
@@ -83,6 +93,8 @@ def available_list(username):
 
 # Returns user's contributed list
 def contributed_list(username):
+    db = sqlite3.connect("utils/database.db")
+    c = db.cursor()
     c.execute("SELECT stories FROM accounts WHERE username = '%s'" % (username))
     for stories in c:
         storyids = eval(stories[0])

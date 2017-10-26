@@ -52,3 +52,6 @@ testing login
 linS -- 2017-10-25 21:36:06
 Fixed some template formatting in home.html
 
+ngM -- 2017-10-25 22:05:20
+Fixed login bugs
+
