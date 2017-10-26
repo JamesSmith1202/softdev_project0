@@ -5,7 +5,7 @@ from utils.dbtool import *
 from utils.authtool import *
 
 from flask import Flask, redirect, url_for, render_template, session, \
-	request
+	request, flash
 
 '''
 TODO
@@ -82,9 +82,10 @@ def login():
 	
 	#is user trying to log in or register
 	if request.method == "POST":
-		print "form: %s"%(request.form["login"])
-		if request.form["login"]:
-			print "Got user %s and pass %s"%(request.form["username"], 
+		print "form: %s"%(request.form)
+		#print "form: %s"%(request.form["login"])
+		if "login" in request.form:
+			print "Login user %s and pass %s"%(request.form["username"], 
 				request.form["password"])
 			if add_session(
 				request.form["username"],
@@ -94,8 +95,12 @@ def login():
 			else:
 				flash("Incorrect login")
 				return render_template("login.html")
-		elif request.form["Register"]:
-			pass
+		elif "register" in request.form:
+			print "Register user %s and pass %s"%(
+				request.form["username"], 
+				request.form["password"])
+			flash("registration not implemented yet")
+			return render_template("login.html")
 	else:
 		return render_template("login.html")
 		#return "It works"
