@@ -2,6 +2,7 @@
 import os
 
 from utils.dbtool import *
+from utils.authtool import *
 
 from flask import Flask, redirect, url_for, render_template, session, \
 	request
@@ -23,7 +24,7 @@ def add_session(username, password):
 	Returns True if successful, False otherwise
 	'''
 	
-	if login(username, password):
+	if authtool.login(username, password):
 		session[USER_SESSION] = user
 		return True
 	return False
@@ -76,10 +77,14 @@ def home():
 def login():
 	if USER_SESSION in session:
 		return redirect(url_for("home"))
+	print "method: %s"%(request.method)
 	
 	#is user trying to log in or register
 	if request.method == "POST":
-		if request.form["Login"]:
+		print "form: %s"%(request.form["login"])
+		if request.form["login"]:
+			print "Got user %s and pass %s"%(request.form["username"], 
+				request.form["password"])
 			if add_session(
 				request.form["username"],
 				request.form["password"]
@@ -87,13 +92,12 @@ def login():
 				return redirect(url_for("home"))
 			else:
 				flash("Incorrect login")
-				#return render_template("login.html")
-				return 
+				return render_template("login.html")
 		elif request.form["Register"]:
 			pass
 	else:
-		#return render_template("login.html")
-		return "It works"
+		return render_template("login.html")
+		#return "It works"
 
 @app.route("/create", methods=["GET", "POST"])
 def create():
