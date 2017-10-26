@@ -1,5 +1,15 @@
 {% extends "template.html" %}
 {% block title %}Create Story{% endblock %}
 {% block content %}
-
+<h1>Start a Story!</h1>
+<br>
+<form method="POST">
+  <h2>Title:</h2> <input type="text" name="title" placeholder="Title">
+  <br>
+  <br>
+  Start your story!:<br>
+  <textarea  name="body" rows="10" cols="75" placeholder="Once upon a time...">
+  </textarea><br><br>
+  <input type="submit" name="create" value="Create Story!">
+  
 {% endblock %}
