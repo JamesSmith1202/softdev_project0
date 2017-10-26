@@ -1,5 +1,9 @@
 {% extends "template.html" %}
 {% block title %}{{page_title}}{% endblock %}
 {% block content %}
-
+<h1>{{story_title}}</h1>
+{{story_content}}
+<form action="/home" method="POST">
+  <input type="submit" name="log_out" value="Log out" />
+</form>
 {% endblock %}

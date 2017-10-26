@@ -1,5 +1,7 @@
 {% extends "template.html" %}
 {% block title %}Available Stories{% endblock %}
 {% block content %}
-
+<form action="/home" method="POST">
+  <input type="submit" name="log_out" value="Log out" />
+</form>
 {% endblock %}

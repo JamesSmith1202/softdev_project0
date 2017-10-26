@@ -1,8 +1,14 @@
 {% extends "template.html" %}
 {% block title %}Create Story{% endblock %}
 {% block content %}
+<form method="POST">
+  <input type="submit" value="Log out" />
+</form>
 <h1>Start a Story!</h1>
 <br>
+{% for message in get_flashed_messages() %}
+{{message}}
+{% endfor %}
 <form method="POST">
   <h2>Title:</h2> <input type="text" name="title" placeholder="Title">
   <br>
