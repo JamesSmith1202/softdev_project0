@@ -57,7 +57,7 @@ def home():
 	'''
 	
 	if request.method == "POST":
-		if request.form["Log out"]:
+		if request.form["log_out"]:
 			logout()
 			return redirect(url_for("home"))
 	
@@ -70,8 +70,8 @@ def home():
 		'''
 		pass
 	
-	#return render_template("home.html")
-	return "It works"
+	return render_template("home.html", logged_in=False)
+	#return "It works"
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

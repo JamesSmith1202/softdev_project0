@@ -7,8 +7,8 @@
     </head>
 
     <body>
-      {% if {{!logged_in}} %}
-      <form action="127.0.0.1:5000/login">
+      {% if not {{logged_in}} %}
+      <form action="/login">
 	<input type="submit" value="Log In!" />
       </form>
       <h1>Welcome to Salading in Yo DMs Story Page!</h1>
