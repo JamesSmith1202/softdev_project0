@@ -59,6 +59,7 @@ def home():
 	if request.method == "POST":
 		print request.form
 		if "log_out" in request.form:
+			print "calling logout"
 			logout()
 			return redirect(url_for("home"))
 	
