@@ -108,10 +108,18 @@ def login():
 				flash("Incorrect login")
 				return render_template("login.html")
 		elif "register" in request.form:
+			username = request.form["username"]
+			password = request.form["password"] 
 			print "Register user %s and pass %s"%(
-				request.form["username"], 
-				request.form["password"])
-			flash("registration not implemented yet")
+				username, password)
+			if username != "" or password != "":
+				if create_account(request.form["username"], 
+						request.form["password"]):
+					flash("registration successful")
+				else:
+					flash("username taken")
+			else:
+				flash("blank fields")
 			return render_template("login.html")
 	else:
 		return render_template("login.html")
