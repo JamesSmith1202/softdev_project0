@@ -167,7 +167,7 @@ def page():
 		return redirect(url_for("home"))
 	
 	if "id" in request.args:
-		story_id = request.args["id"]
+		story_id = int(request.args["id"])
 		title = story_title(story_id)
 		
 		if did_contribute(session[USER_SESSION], story_id):
