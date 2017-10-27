@@ -67,3 +67,6 @@ fixing db bugs
 linS -- 2017-10-26 14:44:11
 testing create story
 
+linS -- 2017-10-26 22:00:07
+fixed story creation bug
+

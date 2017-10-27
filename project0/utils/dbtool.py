@@ -27,16 +27,17 @@ def story_recent(storyid):
 def create_story(title,body,username):
     db = sqlite3.connect("utils/database.db")
     c = db.cursor()
-    c.execute("SELECT * FROM stories")
+    c.execute("SELECT * FROM stories;")
     for row in c:
         last = row
     newid = last[0] + 1
     try:
-        c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s")' %(newid,title,body,body))
-    	authtool.add_contribution(username,newid)
+        c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s");' %(newid,title,body,body))
 	db.commit()
+    	authtool.add_contribution(username,newid)
     	return True
     except:
+	print "oh no"
         return False
     
     db.commit()
