@@ -70,3 +70,6 @@ testing create story
 linS -- 2017-10-26 22:00:07
 fixed story creation bug
 
+linS -- 2017-10-26 22:14:18
+home page works now
+

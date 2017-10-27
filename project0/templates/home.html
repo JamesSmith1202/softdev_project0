@@ -18,7 +18,7 @@ This is a a collaborative storytelling website. First you must log in or create 
   </tr>
   {% for story in stories_contributed %}
   <tr>
-    <td><a href="127.0.0.1:5000/page?id=" + {{story[0]}}>{{story[1]}}</a></td>
+    <td><a href={{"127.0.0.1:5000/page?id=" ~ story[0]}}>{{story[1]}}</a></td>
   </tr>
   {% endfor %}
 </table>

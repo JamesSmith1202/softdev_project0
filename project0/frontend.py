@@ -65,9 +65,19 @@ def home():
 	if USER_SESSION in session:
 		#do some fancy template stuff
 		
+		ids = contributed_list(session[USER_SESSION])
 		
+		contributed_stories = []
+		for story in ids:
+			temp = []
+			temp.append(story)
+			temp.append(story_title(story))
+			print "%d, %s"%(temp[0],temp[1])
+			contributed_stories.append(temp)
+		
+		print contributed_list(session[USER_SESSION])
 		return render_template("home.html",
-			stories_contributed=contributed_list(session[USER_SESSION]),
+			stories_contributed=contributed_stories,
 			logged_in=True)
 		
 		pass
