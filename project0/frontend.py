@@ -158,9 +158,18 @@ def available():
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
 	
-	stories = available_list(session[USER_SESSION])
-	#return render_template("available.html")
-	return "It works"
+	ids = available_list(session[USER_SESSION])
+	
+	available = []
+	for story in ids:
+		temp = []
+		temp.append(story)
+		temp.append(story_title(story))
+		#print "%d, %s"%(temp[0],temp[1])
+		available.append(temp)
+	
+	return render_template("available.html", stories_available=available)
+	#return "It works"
 
 @app.route("/page")
 def page():

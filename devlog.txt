@@ -76,3 +76,6 @@ home page works now
 linS -- 2017-10-27 11:34:08
 fixed logout and page routing
 
+linS -- 2017-10-27 23:07:42
+implemented available stories
+
