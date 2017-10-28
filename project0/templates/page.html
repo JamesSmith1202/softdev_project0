@@ -2,8 +2,18 @@
 {% block title %}{{page_title}}{% endblock %}
 {% block content %}
 <h1>{{story_title}}</h1>
-{{story_content}}
 <form action="/home" method="POST">
   <input type="submit" name="log_out" value="Log out" />
 </form>
+{{story_content}}
+{% if not user_contributed %}
+<br>
+<form method="POST">
+  Add to the story!<br>
+  <textarea  name="body" rows="10" cols="75" placeholder="But then...">
+</textarea>
+  <input type="hidden" name="story_id" value={{story_id}}>
+  <input type="submit" name="contribute" value="Add to the Story!">
+</form>
+{% endif %}
 {% endblock %}

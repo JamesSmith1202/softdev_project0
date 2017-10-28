@@ -171,7 +171,7 @@ def available():
 	return render_template("available.html", stories_available=available)
 	#return "It works"
 
-@app.route("/page")
+@app.route("/page", methods=["GET", "POST"])
 def page():
 	'''
 	Displays a single story
@@ -180,21 +180,39 @@ def page():
 	and a form to add another section
 	'''	
 	
+	if request.method == "POST":
+		contribution = request.form["body"]
+		story_id = int(request.form["story_id"])
+		
+		if contribution != "":
+			add_contribution(session[USER_SESSION], story_id)
+			flash("Successfully added contribution")
+			return redirect(url_for("home"))
+		else:
+			flash("Please enter content and try again")
+			return redirect(url_for("available"))
+	
 	if not(USER_SESSION in session):
 		return redirect(url_for("home"))
 	
 	if "id" in request.args:
 		story_id = int(request.args["id"])
 		title = story_title(story_id)
+		contributed = did_contribute(session[USER_SESSION], story_id)
+		content = ""
 		
-		if did_contribute(session[USER_SESSION], story_id):
-			body = story_body(story_id)
+		if contributed:
+			content = story_body(story_id)
 		else:
-			recent = story_recent(story_id)
+			content = story_recent(story_id)
 		
 	
-	#return render_template("page.html")
-	return "It works"
+	return render_template("page.html",
+		story_id=story_id,
+		page_title=title,
+		story_content=content,
+		user_contributed=contributed)
+	#return "It works"
 
 if __name__ == "__main__":
 	app.debug = True
