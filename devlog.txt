@@ -82,3 +82,6 @@ implemented available stories
 linS -- 2017-10-27 23:32:53
 found a bug with add_contribution
 
+linS -- 2017-10-27 23:43:46
+should have finished all the base functionality
+

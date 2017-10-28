@@ -185,7 +185,9 @@ def page():
 		story_id = int(request.form["story_id"])
 		
 		if contribution != "":
-			add_contribution(session[USER_SESSION], story_id)
+			update_story(story_id,
+				contribution,
+				session[USER_SESSION])
 			flash("Successfully added contribution")
 			return redirect(url_for("home"))
 		else:
