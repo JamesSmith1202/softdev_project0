@@ -85,3 +85,6 @@ found a bug with add_contribution
 linS -- 2017-10-27 23:43:46
 should have finished all the base functionality
 
+smithJ -- 2017-10-29 11:49:57
+Fixed formatting issue on create and reworked html templating
+

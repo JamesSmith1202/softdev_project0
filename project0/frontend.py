@@ -7,11 +7,6 @@ from utils.authtool import *
 from flask import Flask, redirect, url_for, render_template, session, \
 	request, flash
 
-'''
-TODO
-pass page_title var to template based on the next page they are requesting
-'''
-
 USER_SESSION = "logged_in"
 
 
@@ -132,7 +127,7 @@ def create():
 	'''
 	
 	if not(USER_SESSION in session):
-		return redirect(url_for("home"))
+		return redirect(url_for("login"))
 	
 	if request.method == "POST":
 		title = request.form["title"]
@@ -156,7 +151,7 @@ def available():
 	'''
 	
 	if not(USER_SESSION in session):
-		return redirect(url_for("home"))
+		return redirect(url_for("login"))
 	
 	ids = available_list(session[USER_SESSION])
 	
@@ -186,7 +181,7 @@ def page():
 		
 		if contribution != "":
 			update_story(story_id,
-				contribution,
+				" " + contribution, #creating a space before so that the last and first words of the contributions arent stuck together
 				session[USER_SESSION])
 			flash("Successfully added contribution")
 			return redirect(url_for("home"))
