@@ -32,7 +32,7 @@ def create_story(title,body,username):
         last = row
     newid = last[0] + 1
     try:
-        c.execute('INSERT INTO stories VALUES(%d,"%s","%s","%s");' %(newid,title,body,body))
+        c.execute('INSERT INTO stories VALUES(?,?,?,?);',(newid,title,body,body))
 	db.commit()
     	authtool.add_contribution(username,newid)
     	return True
@@ -47,7 +47,7 @@ def update_story(storyid,addition,username):
     db = sqlite3.connect("utils/database.db")
     c = db.cursor()
     body = story_body(storyid)
-    c.execute('UPDATE stories SET recent = "%s", body = "%s" WHERE id = %d' %(addition,body + addition,storyid))
+    c.execute('UPDATE stories SET recent = ?, body = ? WHERE id = ?', (addition,body + addition,storyid))
     db.commit()
     authtool.add_contribution(username,storyid)
     db.commit()
@@ -59,17 +59,5 @@ if __name__ == '__main__':
     print story_body(0)
     print story_recent(0)
     create_story("Goldilocks and the Three Salads","Once upon a time,")
-
-
-    ''' 
-    print story_title(1)
-    print story_body(1)
-    print story_recent(1)
-    update_story(1,' They smelled delicious', 'Mr. Salad')
-    print story_title(1)
-    print story_body(1)
-    print story_recent(1)
-    '''
-
 
     db.close()

@@ -88,3 +88,6 @@ should have finished all the base functionality
 smithJ -- 2017-10-29 11:49:57
 Fixed formatting issue on create and reworked html templating
 
+smithJ -- 2017-10-29 12:42:53
+Debugged program's string parsing, debugged html, reset and populated database 
+

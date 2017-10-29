@@ -99,11 +99,3 @@ def contributed_list(username):
     for stories in c:
         storyids = eval(stories[0])
         return storyids
-    
-#login("Salado", "123456")
-#print encrypt_password("jasl")
-
-#create_account("Salado", "123456")
-#add_contribution("Mr. Salad", 6)
-#did_contribute("Mr. Salad", 5)
-#print available_list("Salado")
