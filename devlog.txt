@@ -91,3 +91,6 @@ Fixed formatting issue on create and reworked html templating
 smithJ -- 2017-10-29 12:42:53
 Debugged program's string parsing, debugged html, reset and populated database 
 
+smithJ -- 2017-10-29 13:40:31
+updated design.pdf and made changes.txt
+
