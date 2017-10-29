@@ -1,0 +1,2 @@
+Removed register page and just had it use the login text boxes as the new credentials.
+Changed create_story to take in a username instead of storyid since we can generate a new one by taking the last id and adding 1 to it, also the username is necessary to add it to their contributed list. 
